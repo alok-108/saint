@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindu Saints Wiki</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #00796b;
+            color: white;
+            padding: 1em 2em;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            margin: 1em 0;
+        }
+
+        nav a {
+            margin: 0 1em;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #b2dfdb;
+        }
+
+        main {
+            flex: 1;
+            padding: 2em;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .article-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: center;
+        }
+
+        .article-list .article {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5em;
+            width: calc(33% - 2em);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .article-list .article img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1em;
+        }
+
+        .article-list .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .article-list .article button {
+            background-color: #e57373;
+            color: white;
+            border: none;
+            padding: 0.5em;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 5px;
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .article-list .article button:hover {
+            background-color: #c62828;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        form div {
+            width: 100%;
+        }
+
+        form label {
+            margin-bottom: 0.5em;
+            display: block;
+            font-weight: bold;
+            color: #00796b;
+        }
+
+        form input, form textarea {
+            padding: 0.75em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 0.75em;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        form button:hover {
+            background-color: #004d40;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #00796b;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .login-form, .registration-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2em;
+        }
+
+        .login-form input, .registration-form input {
+            margin-bottom: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .article-list .article {
+                width: calc(50% - 2em);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-list .article {
+                width: calc(100% - 2em);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hindu Saints Wiki</h1>
+        <nav>
+            <a href="#" id="home-link">Home</a>
+            <a href="#" id="add-article-link" class="hidden">Add Article</a>
+            <a href="#" id="login-link" class="hidden">Login</a>
+            <a href="#" id="register-link" class="hidden">Register</a>
+            <a href="#" id="logout-link" class="hidden">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <div id="login" class="hidden">
+            <h2>Admin Login</h2>
+            <form id="login-form" class="login-form">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div id="register" class="hidden">
+            <h2>Admin Registration</h2>
+            <form id="registration-form" class="registration-form">
+                <div>
+                    <label for="reg-username">Username:</label>
+                    <input type="text" id="reg-username" name="username" required>
+                </div>
+                <div>
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" name="password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <div id="home" class="hidden">
+            <h2>Shaivite Saints</h2>
+            <div id="shaivite-list" class="article-list">
+                <!-- Shaivite Saints articles will be listed here -->
+            </div>
+            <h2>Shakta Saints</h2>
+            <div id="shakta-list" class="article-list">
+                <!-- Shakta Saints articles will be listed here -->
+            </div>
+            <h2>Vaishnavite Saints</h2>
+            <div id="vaishnavite-list" class="article-list">
+                <!-- Vaishnavite Saints articles will be listed here -->
+            </div>
+        </div>
+        <div id="add-article" class="hidden">
+            <h2>Add New Article</h2>
+            <form id="add-article-form">
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div>
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <div>
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="shaivite">Shaivite</option>
+                        <option value="shakta">Shakta</option>
+                        <option value="vaishnavite">Vaishnavite</option>
+                    </select>
+                </div>
+                <button type="submit">Add Article</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hindu Saints Wiki. All rights reserved.</p>
+    </footer>
+    <script>
+        const articles = {
+            shaivite: [
+                { 
+                    title: 'Shiva Shankaracharya', 
+                    content: 'Shiva Shankaracharya was a revered Shaivite saint known for his profound wisdom and devotion to Lord Shiva.', 
+                    image: 'https://via.placeholder.com/400x250?text=Shiva+Shankaracharya'
+                },
+                { 
+                    title: 'Ramalinga Swamigal', 
+                    content: 'Ramalinga Swamigal was a prominent Shaivite saint and poet whose works greatly influenced Tamil devotional literature.', 
+                    image: 'https://via.placeholder.com/400x250?text=Ramalinga+Swamigal'
+                },
+                { 
+                    title: 'Adi Shankaracharya', 
+                    content: 'Adi Shankaracharya was a renowned philosopher and theologian who consolidated the doctrine of Advaita Vedanta.', 
+                    image: 'https://via.placeholder.com/400x250?text=Adi+Shankaracharya'
+                },
+                { 
+                    title: 'Raghavendra Swamy', 
+                    content: 'Raghavendra Swamy was a revered Shaivite saint and philosopher known for his spiritual teachings and miracles.', 
+                    image: 'https://via.placeholder.com/400x250?text=Raghavendra+Swamy'
+                }
+            ],
+            shakta: [
+                { 
+                    title: 'Sri Ramakrishna', 
+                    content: 'Sri Ramakrishna was a revered Shakta saint known for his devotion to the Goddess Kali and his mystical experiences.', 
+                    image: 'https://via.placeholder.com/400x250?text=Sri+Ramakrishna'
+                },
+                { 
+                    title: 'Sri Sarada Devi', 
+                    content: 'Sri Sarada Devi was a revered Shakta saint and the wife of Sri Ramakrishna, known for her devotion and spiritual insight.', 
+                    image: 'https://via.placeholder.com/400x250?text=Sri+Sarada+Devi'
+                },
+                { 
+                    title: 'Baghwan Shree Rajneesh', 
+                    content: 'Baghwan Shree Rajneesh, also known as Osho, was a modern Shakta saint known for his controversial teachings and spiritual discourse.', 
+                    image: 'https://via.placeholder.com/400x250?text=Baghwan+Shree+Rajneesh'
+                },
+                { 
+                    title: 'Mata Amritanandamayi', 
+                    content: 'Mata Amritanandamayi, popularly known as Amma, is a contemporary Shakta saint known for her humanitarian work and compassion.', 
+                    image: 'https://via.placeholder.com/400x250?text=Mata+Amritanandamayi'
+                }
+            ],
+            vaishnavite: [
+                { 
+                    title: 'Chaitanya Mahaprabhu', 
+                    content: 'Chaitanya Mahaprabhu was a great Vaishnavite saint and proponent of the Gaudiya Vaishnavism tradition.', 
+                    image: 'https://via.placeholder.com/400x250?text=Chaitanya+Mahaprabhu'
+                },
+                { 
+                    title: 'Ramananda', 
+                    content: 'Ramananda was a prominent Vaishnavite saint who played a key role in the Bhakti movement.', 
+                    image: 'https://via.placeholder.com/400x250?text=Ramananda'
+                },
+                { 
+                    title: 'Vallabhacharya', 
+                    content: 'Vallabhacharya was a Vaishnavite saint and philosopher who founded the Pushti Marg sect of Vaishnavism.', 
+                    image: 'https://via.placeholder.com/400x250?text=Vallabhacharya'
+                },
+                { 
+                    title: 'Nimbarka', 
+                    content: 'Nimbarka was a Vaishnavite saint known for establishing the Nimbarka Sampradaya, a sect dedicated to Lord Krishna and Radha.', 
+                    image: 'https://via.placeholder.com/400x250?text=Nimbarka'
+                }
+            ]
+        };
+
+        let isAdmin = false; // Track admin status
+        let adminCredentials = JSON.parse(localStorage.getItem('adminCredentials')) || null;
+
+        function showPage(pageId) {
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('add-article').classList.add('hidden');
+            document.getElementById('login').classList.add('hidden');
+            document.getElementById('register').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function displayArticles() {
+            const categories = ['shaivite', 'shakta', 'vaishnavite'];
+            
+            categories.forEach(category => {
+                const articleList = document.getElementById(`${category}-list`);
+                articleList.innerHTML = ''; // Clear existing articles
+
+                articles[category].forEach((article, index) => {
+                    const articleDiv = document.createElement('div');
+                    articleDiv.className = 'article';
+
+                    const img = document.createElement('img');
+                    img.src = article.image;
+                    img.alt = article.title;
+
+                    const title = document.createElement('h2');
+                    title.textContent = article.title;
+
+                    const content = document.createElement('p');
+                    content.textContent = article.content;
+
+                    articleDiv.appendChild(img);
+                    articleDiv.appendChild(title);
+                    articleDiv.appendChild(content);
+
+                    if (isAdmin) {
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.addEventListener('click', () => {
+                            deleteArticle(category, index);
+                        });
+                        articleDiv.appendChild(deleteButton);
+                    }
+
+                    articleList.appendChild(articleDiv);
+                });
+            });
+        }
+
+        function deleteArticle(category, index) {
+            articles[category].splice(index, 1); // Remove article from the array
+            displayArticles(); // Update the displayed list
+        }
+
+        document.getElementById('home-link').addEventListener('click', () => {
+            showPage('home');
+            displayArticles();
+        });
+
+        document.getElementById('add-article-link').addEventListener('click', () => {
+            if (isAdmin) {
+                showPage('add-article');
+            } else {
+                alert('Admin access required.');
+            }
+        });
+
+        document.getElementById('login-link').addEventListener('click', () => {
+            showPage('login');
+        });
+
+        document.getElementById('register-link').addEventListener('click', () => {
+            showPage('register');
+        });
+
+        document.getElementById('logout-link').addEventListener('click', () => {
+            isAdmin = false;
+            updateNavigation();
+            showPage('home');
+            displayArticles();
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (adminCredentials && adminCredentials.username === username && adminCredentials.password === password) {
+                isAdmin = true;
+                updateNavigation();
+                showPage('home');
+                displayArticles();
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+
+            // Store the credentials
+            adminCredentials = { username, password };
+            localStorage.setItem('adminCredentials', JSON.stringify(adminCredentials));
+
+            alert('Admin registration successful. You can now log in.');
+            showPage('login');
+        });
+
+        function updateNavigation() {
+            document.getElementById('login-link').classList.toggle('hidden', isAdmin);
+            document.getElementById('logout-link').classList.toggle('hidden', !isAdmin);
+            document.getElementById('add-article-link').classList.toggle('hidden', !isAdmin);
+            document.getElementById('register-link').classList.toggle('hidden', isAdmin);
+        }
+
+        // Initialize the page
+        updateNavigation();
+        showPage('home');
+        displayArticles();
+    </script>
+</body>
+</html>
